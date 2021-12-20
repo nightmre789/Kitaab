@@ -1,4 +1,5 @@
-using Kitaab.Models;
+using Kitaab.Data;
+using Kitaab.Data.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +27,9 @@ namespace Kitaab
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString")));
+
+            services.AddScoped<IAuthorsService, AuthorsService>();
+            services.AddScoped<IBooksService, BooksService>();
 
             services.AddControllersWithViews();
         }
@@ -56,6 +60,7 @@ namespace Kitaab
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+            AppDBInit.Seed(app);
         }
     }
 }
