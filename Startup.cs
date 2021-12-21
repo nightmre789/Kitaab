@@ -1,5 +1,4 @@
 using Kitaab.Data;
-using Kitaab.Data.Cart;
 using Kitaab.Data.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,7 +33,6 @@ namespace Kitaab
             services.AddScoped<IBooksService, BooksService>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
 
             services.AddControllersWithViews();
         }
