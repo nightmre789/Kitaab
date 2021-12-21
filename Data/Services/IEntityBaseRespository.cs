@@ -1,6 +1,6 @@
 ﻿namespace Kitaab.Data.Services
 {
-    public interface IEntityBaseRespository<T>
+    public interface IEntityBaseRepository<T>
     {
     }
 }

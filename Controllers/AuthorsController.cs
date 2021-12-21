@@ -13,7 +13,7 @@ namespace Kitaab.Controllers
 {
     public class AuthorsController : Controller
     {
-        private IAuthorsService _service;
+        private readonly IAuthorsService _service;
 
         public AuthorsController(IAuthorsService service)
         {
@@ -33,14 +33,14 @@ namespace Kitaab.Controllers
         public async Task<IActionResult> Details(int id)
         {
             var authorDetails = await _service.GetByIdAsync(id);
-            if (authorDetails == null) return View("Not Found");
+            if (authorDetails == null) return View("NotFound");
             return View(authorDetails);
         }
 
         public async Task<IActionResult> Edit(int id)
         {
             var authorDetails = await _service.GetByIdAsync(id);
-            if (authorDetails == null) return View("Not Found");
+            if (authorDetails == null) return View("NotFound");
             return View(authorDetails);
         }
 
@@ -69,7 +69,7 @@ namespace Kitaab.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var authorDetails = await _service.GetByIdAsync(id);
-            if (authorDetails == null) return View("Not Found");
+            if (authorDetails == null) return View("NotFound");
             return View(authorDetails);
         }
 
@@ -77,7 +77,7 @@ namespace Kitaab.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var authorDetails = await _service.GetByIdAsync(id);
-            if (authorDetails == null) return View("Not Found");
+            if (authorDetails == null) return View("NotFound");
 
             await _service.DeleteAsync(id);
             return RedirectToAction(nameof(Index));

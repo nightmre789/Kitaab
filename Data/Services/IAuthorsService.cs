@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Kitaab.Data.Services
 {
-    public interface IAuthorsService : IEntityBaseRepository<Author>
+    public interface IAuthorsService : Base.IEntityBaseRepository<Author>
     {
     }
 }

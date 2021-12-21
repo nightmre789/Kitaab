@@ -1,0 +1,88 @@
+﻿@model NewBookVM
+@using Kitaab.Data;
+
+@{
+    ViewData["Title"] = "Create a new book";
+}
+
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h4>Create a new book</h4>
+        </p>
+
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Title" class="control-label"></label>
+                                <input asp-for="Title" class="form-control" />
+                                <span asp-validation-for="Title" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Quantity" class="control-label"></label>
+                                <input asp-for="Quantity" type="number" class="form-control" />
+                                <span asp-validation-for="Quantity" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Price" class="control-label"></label>
+                                <input asp-for="Price" type="number" class="form-control" />
+                                <span asp-validation-for="Price" class="text-danger"></span>
+                            </div>
+                            
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="AuthorId" class="control-label"></label>
+                                <select asp-for="AuthorId" class="form-control" asp-items="ViewBag.AuthorId"></select>
+                                <span asp-validation-for="AuthorId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Cover" class="control-label"></label>
+                                <input asp-for="Cover" class="form-control" />
+                                <span asp-validation-for="Cover" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Category" class="control-label"></label>
+                                <input asp-for="Category" class="form-control" />
+                                <span asp-validation-for="Category" class="text-danger"></span>
+                            </div>
+                        </div>
+                     </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Description" class="control-label"></label>
+                                <textarea asp-for="Description" class="form-control"></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                    <div class="col-md-4 offset-4 text-center">
+                        <img width="100%" id="ImageUrlPreview" />
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-outline-success float-right" />
+                        <a class="btn btn-outline-secondary" asp-action="Index">Show all</a>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $("#Cover").on("change", function () {
+            var output = document.getElementById("ImageUrlPreview");
+            output.src = $(this).val();
+        })
+    </script>
+}

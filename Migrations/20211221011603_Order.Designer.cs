@@ -4,14 +4,16 @@ using Kitaab.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Kitaab.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20211221011603_Order")]
+    partial class Order
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -117,29 +119,6 @@ namespace Kitaab.Migrations
                     b.ToTable("OrderItems");
                 });
 
-            modelBuilder.Entity("Kitaab.Models.ShoppingCartItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("BookId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ShoppingCartId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BookId");
-
-                    b.ToTable("ShoppingCartItems");
-                });
-
             modelBuilder.Entity("Kitaab.Models.Book", b =>
                 {
                     b.HasOne("Kitaab.Models.Author", "Author")
@@ -162,15 +141,6 @@ namespace Kitaab.Migrations
                     b.HasOne("Kitaab.Models.Order", null)
                         .WithMany("OrderItems")
                         .HasForeignKey("OrderId");
-
-                    b.Navigation("Book");
-                });
-
-            modelBuilder.Entity("Kitaab.Models.ShoppingCartItem", b =>
-                {
-                    b.HasOne("Kitaab.Models.Book", "Book")
-                        .WithMany()
-                        .HasForeignKey("BookId");
 
                     b.Navigation("Book");
                 });
