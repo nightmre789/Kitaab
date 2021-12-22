@@ -1,9 +1,13 @@
 using Kitaab.Data;
+using Kitaab.Data.Cart;
 using Kitaab.Data.Services;
+using Kitaab.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,9 +35,18 @@ namespace Kitaab
 
             services.AddScoped<IAuthorsService, AuthorsService>();
             services.AddScoped<IBooksService, BooksService>();
+            services.AddScoped<IOrderService, OrdersService>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
 
+            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDBContext>();
+            services.AddMemoryCache();
+            services.AddSession();
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            });
             services.AddControllersWithViews();
         }
 
@@ -52,9 +65,10 @@ namespace Kitaab
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -64,6 +78,7 @@ namespace Kitaab
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
             AppDBInit.Seed(app);
+            AppDBInit.SeedUsersAndRolesAsync(app).Wait();
         }
     }
 }

@@ -1,0 +1,23 @@
+﻿@if (TempData["Error"] != null)
+{
+<div class="row">
+    <div class="col-md-6 offset-3 alert alert-danger text-center">
+        <h2>Order Unsuccessful</h2>
+        <p>Please order books within their quantity</p>
+        <hr />
+
+        <p>Thank you!</p>
+    </div>
+</div>
+}
+else
+{ <div class="row">
+    <div class="col-md-6 offset-3 alert alert-success text-center">
+        <h2>Order completed Successfully</h2>
+        <p>You can check all your orders in the Orders section of your profile</p>
+        <hr />
+
+        <p>Thank you!</p>
+    </div>
+</div>
+}

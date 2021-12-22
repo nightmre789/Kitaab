@@ -1,4 +1,5 @@
 ﻿using Kitaab.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,10 +8,12 @@ using System.Threading.Tasks;
 
 namespace Kitaab.Data
 {
-    public class AppDBContext : DbContext
+    public class AppDBContext : IdentityDbContext<ApplicationUser>
     {
         public AppDBContext(DbContextOptions<AppDBContext> options) : base(options)
-        { }
+        {
+            
+        }
             protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Author>()

@@ -38,10 +38,10 @@
                             }
                             else
                             {
-                                <span class="badge bg-primary text-white">Not Available</span>
+                                <span class="badge bg-danger text-white">Not Available</span>
                             }
                         </p>
-                        <p class="card-text"><b>Price: </b>@Model.Price)</p>
+                        <p class="card-text"><b>Price: </b>@Model.Price.ToString("c")</p>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -52,7 +52,7 @@
                             </a>
                             <a class="btn btn-success text-white  @((Model.Quantity > 0) ? "" : "disabled")"
                                asp-controller="Orders"
-                               asp-action="AddItemToShoppingCart" asp-route-id="@Model.Id"><i class="bi bi-cart-plus"></i> Add to Cart (Price @Model.Price.ToString("c"))</a>
+                               asp-action="AddItemToShoppingCart" asp-route-id="@Model.Id"><i class="bi bi-cart-plus"></i> Add to Cart</a>
                         </p>
                     </div>
                 </div>
