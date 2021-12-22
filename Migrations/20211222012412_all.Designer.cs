@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Kitaab.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20211221231435_Identity")]
-    partial class Identity
+    [Migration("20211222012412_all")]
+    partial class all
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -152,9 +152,11 @@ namespace Kitaab.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Orders");
                 });
@@ -350,6 +352,15 @@ namespace Kitaab.Migrations
                         .IsRequired();
 
                     b.Navigation("Author");
+                });
+
+            modelBuilder.Entity("Kitaab.Models.Order", b =>
+                {
+                    b.HasOne("Kitaab.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Kitaab.Models.OrderItem", b =>

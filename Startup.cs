@@ -1,3 +1,4 @@
+using ElectronNET.API;
 using Kitaab.Data;
 using Kitaab.Data.Cart;
 using Kitaab.Data.Services;
@@ -75,10 +76,13 @@ namespace Kitaab
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Books}/{action=Index}/{id?}");
             });
             AppDBInit.Seed(app);
             AppDBInit.SeedUsersAndRolesAsync(app).Wait();
+            Task.Run (async () => {
+                await Electron.WindowManager.CreateWindowAsync ();
+            });
         }
     }
 }
